@@ -22,7 +22,7 @@ fun NavHost(modifier: Modifier = Modifier) {
     ) { padding ->
         NavHost(
             navController = navController,
-            startDestination = BottomNavItem.Add.route,
+            startDestination = BottomNavItem.Favourite.route,
             modifier = modifier.padding(padding)
         ) {
             composable(BottomNavItem.Add.route) {
@@ -34,7 +34,7 @@ fun NavHost(modifier: Modifier = Modifier) {
             }
 
             composable(BottomNavItem.Favourite.route) {
-                FavouriteScreen()
+                FavouriteScreen(onBackClick = { navController.popBackStack() })
             }
         }
     }

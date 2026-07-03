@@ -14,4 +14,5 @@ sealed class BottomNavItem(
     object Add: BottomNavItem(route = "add", icon = Icons.Default.Add, title = "Add")
     object History: BottomNavItem(route = "history", icon = Icons.Default.History, title = "History")
     object Favourite: BottomNavItem(route = "favourite", icon = Icons.Default.Favorite, title = "Favourite")
+
 }
