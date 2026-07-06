@@ -8,8 +8,12 @@
     <string name="back">Back</string>
 
     <string name="favourite_screen_title">Favourite words</string>
+    <string name="history_screen_title">History</string>
 
     <string name="add_to_favourite">Add to favourite</string>
+
+    <string name="search">Search...</string>
+    <string name="clear_icon_content_description">Clear</string>
 
     <string name="something_went_wrong">Something went wrong</string>
 </resources>

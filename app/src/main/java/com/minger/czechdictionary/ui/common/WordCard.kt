@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.AccessTime
 import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -49,7 +51,7 @@ fun WordCard(
                     )
                 } else {
                     Icon(
-                        imageVector = Icons.Outlined.Favorite,
+                        imageVector = Icons.Outlined.FavoriteBorder,
                         contentDescription = stringResource(R.string.add_to_favourite)
                     )
                 }

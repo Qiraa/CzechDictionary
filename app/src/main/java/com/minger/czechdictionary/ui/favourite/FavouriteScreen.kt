@@ -17,7 +17,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.minger.czechdictionary.R
 import com.minger.czechdictionary.presentation.favourite.FavouriteState
 import com.minger.czechdictionary.presentation.favourite.FavouriteWordItem
@@ -37,8 +36,8 @@ fun FavouriteScreen(
 ) {
     val state by viewModel.state.collectAsState()
     when (val currentSate = state) {
-        FavouriteState.Error -> ErrorScreen()
-        FavouriteState.Loading -> LoadingScreen()
+        FavouriteState.Error -> ErrorScreen(modifier = modifier)
+        FavouriteState.Loading -> LoadingScreen(modifier = modifier)
         is FavouriteState.Success -> SuccessContent(
             modifier = modifier,
             words = currentSate.words,
@@ -61,6 +60,7 @@ private fun SuccessContent(
         AppBar(
             onBackClick = onBackClick,
             title = stringResource(R.string.favourite_screen_title),
+            isBackClickNeed = true,
         )
         Spacer(modifier = Modifier.height(4.dp))
         LazyColumn(
