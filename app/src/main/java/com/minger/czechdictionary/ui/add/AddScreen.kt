@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
@@ -16,19 +17,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.minger.czechdictionary.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddScreen(navController: NavController = rememberNavController()) {
+fun AddScreen(onAddWord: (String) -> Unit, onDismiss: () -> Unit) {
     var text by remember { mutableStateOf("") }
 
     ModalBottomSheet(
-        onDismissRequest = {
-            navController.popBackStack()
-        }
+        onDismissRequest = onDismiss
     ) {
         Column(
             modifier = Modifier
@@ -37,24 +36,20 @@ fun AddScreen(navController: NavController = rememberNavController()) {
         ) {
             OutlinedTextField(
                 value = text,
-                onValueChange = {
-                    text = it
-                },
-                label = {
-                    Text("Введите текст")
-                },
-                modifier = Modifier.fillMaxWidth()
+                onValueChange = { text = it },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(16.dp),
+                label = { Text(stringResource(R.string.add_word)) },
             )
-
             Spacer(modifier = Modifier.height(16.dp))
-
             Button(
                 onClick = {
-                    navController.popBackStack()
+                    onAddWord(text)
+                    onDismiss()
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Add")
+                Text(stringResource(R.string.add))
             }
         }
     }

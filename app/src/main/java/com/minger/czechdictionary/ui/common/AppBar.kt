@@ -1,15 +1,14 @@
 package com.minger.czechdictionary.ui.common
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -29,16 +28,18 @@ fun AppBar(
     onBackClick: () -> Unit = {},
     title: String,
     isBackClickNeed: Boolean,
+    isRightIconNeed: Boolean = false,
+    onDeleteClick: () -> Unit = {},
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
-        ) {
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)
                 .background(MaterialTheme.colorScheme.surface),
-            ) {
+        ) {
             if (isBackClickNeed) {
                 IconButton(
                     onClick = onBackClick,
@@ -56,6 +57,17 @@ fun AppBar(
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,
             )
+            if (isRightIconNeed) {
+                IconButton(
+                    onClick = onDeleteClick,
+                    modifier = Modifier.align(Alignment.CenterEnd),
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = stringResource(R.string.clear_history),
+                    )
+                }
+            }
         }
     }
 }

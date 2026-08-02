@@ -11,5 +11,5 @@ sealed class HistoryState(){
 
 data class WordItem(
     val word: String,
-    val isFavorite: Boolean = false
+    val isFavourite: Boolean = false
 )
