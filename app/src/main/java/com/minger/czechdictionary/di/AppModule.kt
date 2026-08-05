@@ -6,12 +6,15 @@ import com.minger.czechdictionary.domain.AddWordUseCase
 import com.minger.czechdictionary.domain.AddWordUseCaseImpl
 import com.minger.czechdictionary.domain.ClearWordsUseCase
 import com.minger.czechdictionary.domain.ClearWordsUseCaseImpl
+import com.minger.czechdictionary.domain.GetWordUseCase
+import com.minger.czechdictionary.domain.GetWordUseCaseImpl
 import com.minger.czechdictionary.domain.GetWordsUseCase
 import com.minger.czechdictionary.domain.GetWordsUseCaseImpl
-import com.minger.czechdictionary.domain.UpdateUseCase
-import com.minger.czechdictionary.domain.UpdateWordUseCaseImpl
+import com.minger.czechdictionary.domain.UpdateWordUseCase
+import com.minger.czechdictionary.domain.UpdateWordWordUseCaseImpl
 import com.minger.czechdictionary.presentation.favourite.FavouriteViewModel
 import com.minger.czechdictionary.presentation.history.HistoryViewModel
+import com.minger.czechdictionary.presentation.word.WordViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -22,9 +25,10 @@ val appModule = module {
     factory { AddWordUseCaseImpl(get()) } bind AddWordUseCase::class
     factory { GetWordsUseCaseImpl(get()) } bind GetWordsUseCase::class
     factory { ClearWordsUseCaseImpl(get()) } bind ClearWordsUseCase::class
-    factory { UpdateWordUseCaseImpl(get()) } bind UpdateUseCase::class
+    factory { UpdateWordWordUseCaseImpl(get()) } bind UpdateWordUseCase::class
+    factory { GetWordUseCaseImpl(get()) } bind GetWordUseCase::class
 
-    viewModel { FavouriteViewModel() }
+    viewModel { FavouriteViewModel(get(), get(), get()) }
     viewModel {
         HistoryViewModel(
             get(),
@@ -33,4 +37,5 @@ val appModule = module {
             get()
         )
     }
+    viewModel { WordViewModel( get()) }
 }

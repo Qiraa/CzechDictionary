@@ -6,7 +6,7 @@ import com.minger.czechdictionary.data.Word
 import com.minger.czechdictionary.domain.AddWordUseCase
 import com.minger.czechdictionary.domain.ClearWordsUseCase
 import com.minger.czechdictionary.domain.GetWordsUseCase
-import com.minger.czechdictionary.domain.UpdateUseCase
+import com.minger.czechdictionary.domain.UpdateWordUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,17 +16,8 @@ class HistoryViewModel(
     private val getWordsUseCase: GetWordsUseCase,
     private val addWordUseCase: AddWordUseCase,
     private val clearWordsUseCase: ClearWordsUseCase,
-    private val updateWordUseCase: UpdateUseCase,
+    private val updateWordUseCase: UpdateWordUseCase,
 ) : ViewModel() {
-
-    private val allWords = mutableListOf(
-        WordItem("matka"),
-        WordItem("otec"),
-        WordItem("syr"),
-        WordItem("auto"),
-        WordItem("kniha"),
-        WordItem("strom"),
-    )
 
     private val mutableState: MutableStateFlow<HistoryState> =
         MutableStateFlow(HistoryState.Loading)
@@ -67,7 +58,6 @@ class HistoryViewModel(
         }
     }
 
-
     fun onSearchQueryChanged(query: String) {
         currentSearchQuery.value = query
         applyFilter(query)
@@ -87,6 +77,7 @@ class HistoryViewModel(
     fun addWord(word: String) {
         val newWord = Word(
             word = word,
+            partOfSpeech = "",
             translate = "",
             isFavourite = false,
             definition = ""

@@ -4,6 +4,8 @@ interface WordsRepository {
 
     suspend fun getWords() : List<Word>
 
+    suspend fun getWord(word: String) : Word
+
     suspend fun addWord(word: Word)
 
     suspend fun deleteWord(word: Word)

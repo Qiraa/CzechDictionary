@@ -1,6 +1,6 @@
 package com.minger.czechdictionary.presentation.favourite
 
-sealed class FavouriteState() {
+sealed class FavouriteState {
 
     object Loading: FavouriteState()
     object Error: FavouriteState()

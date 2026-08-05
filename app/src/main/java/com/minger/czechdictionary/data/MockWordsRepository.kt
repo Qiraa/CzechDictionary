@@ -6,6 +6,10 @@ class MockWordsRepository : WordsRepository {
 
     override suspend fun getWords(): List<Word> = words
 
+    override suspend fun getWord(word: String): Word {
+        return words.find { it.word == word } ?: throw NoSuchElementException("Word not found")
+    }
+
     override suspend fun addWord(word: Word) {
         words.add(word)
     }

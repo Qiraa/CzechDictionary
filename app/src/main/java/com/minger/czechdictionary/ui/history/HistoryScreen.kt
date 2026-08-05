@@ -30,12 +30,14 @@ import com.minger.czechdictionary.ui.common.AppBar
 import com.minger.czechdictionary.ui.common.ErrorScreen
 import com.minger.czechdictionary.ui.common.LoadingScreen
 import com.minger.czechdictionary.ui.common.WordCard
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
 fun HistoryScreen(
     modifier: Modifier = Modifier,
     viewModel: HistoryViewModel,
+    onWordClick: (String) -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
@@ -49,6 +51,7 @@ fun HistoryScreen(
             onQueryChange = viewModel::onSearchQueryChanged,
             onFavouriteClick = viewModel::onFavouriteClick,
             onClearHistory = viewModel::clearHistory,
+            onWordClick = onWordClick,
         )
     }
 }
@@ -61,6 +64,7 @@ private fun SuccessContent(
     onQueryChange: (String) -> Unit,
     onFavouriteClick: (String) -> Unit,
     onClearHistory: () -> Unit,
+    onWordClick: (String) -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -99,7 +103,8 @@ private fun SuccessContent(
                 WordCard(
                     word = item.word,
                     isFavourite = item.isFavourite,
-                    onWordClick = { onFavouriteClick(item.word) },
+                    onWordClick = { onWordClick(item.word) },
+                    updateWordClick = { onFavouriteClick(item.word) },
                 )
             }
         }

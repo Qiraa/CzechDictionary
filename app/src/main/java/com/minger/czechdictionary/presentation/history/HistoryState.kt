@@ -1,6 +1,6 @@
 package com.minger.czechdictionary.presentation.history
 
-sealed class HistoryState(){
+sealed class HistoryState {
 
     object Loading: HistoryState()
 
