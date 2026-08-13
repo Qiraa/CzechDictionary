@@ -14,6 +14,7 @@ sealed interface WordState {
             val translate: String,
             val isFavourite: Boolean,
             val definition: String,
+            val createdAt: Long,
         )
     }
 }

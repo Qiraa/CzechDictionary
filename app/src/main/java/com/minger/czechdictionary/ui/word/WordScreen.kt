@@ -105,9 +105,9 @@ private fun SuccessContent(
                 )
                 ItemButton(
                     icon = if (word.isFavourite) {
-                        Icons.Default.FavoriteBorder
-                    } else {
                         Icons.Default.Favorite
+                    } else {
+                        Icons.Default.FavoriteBorder
                     },
                     buttonDescription = if (word.isFavourite) {
                         stringResource(R.string.remove_from_favourite)

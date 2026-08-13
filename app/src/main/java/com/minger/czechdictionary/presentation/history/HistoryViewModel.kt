@@ -28,39 +28,38 @@ class HistoryViewModel(
     val searchQuery: StateFlow<String> = currentSearchQuery.asStateFlow()
 
     init {
-        loadWords()
+        observeWords()
     }
 
-    private fun loadWords() {
+    private fun observeWords() {
         viewModelScope.launch {
-            val words = getWordsUseCase.getWords()
-            mutableState.value = HistoryState.Success(
-                words.map { word ->
-                    WordItem(
-                        word = word.word,
-                        isFavourite = word.isFavourite,
-                    )
-                }
-            )
+            getWordsUseCase.observeWords().collect { words ->
+                applyFilter(words, currentSearchQuery.value)
+            }
         }
     }
 
-    private fun applyFilter(query: String) {
-        viewModelScope.launch {
-            mutableState.value = HistoryState.Success(
-                getWordsUseCase.getWords(query).map { word ->
-                    WordItem(
-                        word = word.word,
-                        isFavourite = word.isFavourite,
-                    )
-                }
-            )
+    private fun applyFilter(words: List<Word>, query: String) {
+        val filtered = if (query.isBlank()) {
+            words
+        } else {
+            words.filter { it.word.contains(query, ignoreCase = true) }
         }
+        mutableState.value = HistoryState.Success(
+            filtered.map { word ->
+                WordItem(
+                    word = word.word,
+                    isFavourite = word.isFavourite,
+                )
+            }
+        )
     }
 
     fun onSearchQueryChanged(query: String) {
         currentSearchQuery.value = query
-        applyFilter(query)
+        viewModelScope.launch {
+            applyFilter(getWordsUseCase.getWords(), query)
+        }
     }
 
     fun onFavouriteClick(word: String) {
@@ -70,7 +69,6 @@ class HistoryViewModel(
             updateWordUseCase.updateWord(
                 wordToUpdate.copy(isFavourite = !wordToUpdate.isFavourite)
             )
-            applyFilter(currentSearchQuery.value)
         }
     }
 
@@ -80,12 +78,12 @@ class HistoryViewModel(
             partOfSpeech = "",
             translate = "",
             isFavourite = false,
-            definition = ""
+            definition = "",
+            createdAt = System.currentTimeMillis(),
         )
         viewModelScope.launch {
             addWordUseCase.addWord(newWord)
         }
-        applyFilter(currentSearchQuery.value)
     }
 
     fun clearHistory() {
@@ -93,6 +91,5 @@ class HistoryViewModel(
             clearWordsUseCase.clearWords()
         }
         currentSearchQuery.value = ""
-        applyFilter("")
     }
 }

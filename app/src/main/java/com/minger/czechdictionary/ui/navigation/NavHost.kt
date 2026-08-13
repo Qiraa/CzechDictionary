@@ -37,7 +37,7 @@ fun NavigationHost(modifier: Modifier = Modifier) {
     ) { padding ->
         NavHost(
             navController = navController,
-            startDestination = BottomNavItem.Favourite.route,
+            startDestination = BottomNavItem.History.route,
             modifier = modifier.padding(padding)
         ) {
             composable(BottomNavItem.History.route) {
