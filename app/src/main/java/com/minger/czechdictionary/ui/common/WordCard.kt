@@ -1,12 +1,12 @@
 package com.minger.czechdictionary.ui.common
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.outlined.AccessTime
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Card
@@ -24,13 +24,15 @@ import com.minger.czechdictionary.R
 fun WordCard(
     modifier: Modifier = Modifier,
     word: String,
-    onWordClick: () -> Unit,
+    onWordClick: (String) -> Unit,
+    updateWordClick: () -> Unit,
     isFavourite: Boolean,
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 2.dp, horizontal = 4.dp)
+            .clickable { onWordClick(word) }
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -42,7 +44,7 @@ fun WordCard(
                 modifier = Modifier.padding(start = 12.dp)
             )
             IconButton(
-                onClick = onWordClick,
+                onClick = updateWordClick,
             ) {
                 if (isFavourite) {
                     Icon(

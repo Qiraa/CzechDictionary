@@ -33,6 +33,7 @@ fun FavouriteScreen(
     modifier: Modifier = Modifier,
     viewModel: FavouriteViewModel = koinViewModel(),
     onBackClick: () -> Unit,
+    onWordClick: (String) -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
     when (val currentSate = state) {
@@ -41,7 +42,8 @@ fun FavouriteScreen(
         is FavouriteState.Success -> SuccessContent(
             modifier = modifier,
             words = currentSate.words,
-            onWordClick = { viewModel.onWordClick(it) },
+            onWordClick = onWordClick,
+            onFavouriteClick = viewModel::onWordClick,
             onBackClick = onBackClick,
         )
     }
@@ -52,6 +54,7 @@ private fun SuccessContent(
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit,
     onWordClick: (word: String) -> Unit,
+    onFavouriteClick: (word: String) -> Unit,
     words: List<FavouriteWordItem>,
 ) {
     Column(
@@ -78,6 +81,7 @@ private fun SuccessContent(
                         word = item.word,
                         isFavourite = item.isFavourite,
                         onWordClick = { onWordClick(item.word) },
+                        updateWordClick = { onFavouriteClick(item.word) },
                     )
                 }
             }

@@ -30,6 +30,7 @@ import com.minger.czechdictionary.R
 fun CustomBottomBar(
     modifier: Modifier = Modifier,
     navController: NavController,
+    onAddClick: () -> Unit,
 ) {
     Box(
         modifier = modifier.fillMaxWidth(),
@@ -60,9 +61,7 @@ fun CustomBottomBar(
             }
         }
         FloatingActionButton(
-            onClick = {
-                navController.navigate(BottomNavItem.Add.route)
-            },
+            onClick = onAddClick,
             modifier = Modifier
                 .offset(y = (-20).dp)
                 .size(72.dp),

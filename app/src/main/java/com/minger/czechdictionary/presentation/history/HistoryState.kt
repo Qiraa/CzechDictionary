@@ -1,6 +1,6 @@
 package com.minger.czechdictionary.presentation.history
 
-sealed class HistoryState(){
+sealed class HistoryState {
 
     object Loading: HistoryState()
 
@@ -11,5 +11,5 @@ sealed class HistoryState(){
 
 data class WordItem(
     val word: String,
-    val isFavorite: Boolean = false
+    val isFavourite: Boolean = false
 )

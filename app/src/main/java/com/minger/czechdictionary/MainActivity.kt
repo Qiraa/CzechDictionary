@@ -12,7 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.minger.czechdictionary.ui.navigation.NavHost
+import com.minger.czechdictionary.ui.navigation.NavigationHost
 import com.minger.czechdictionary.ui.theme.CzechDictionaryTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CzechDictionaryTheme {
-                NavHost()
+                NavigationHost()
             }
         }
     }

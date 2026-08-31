@@ -9,11 +9,19 @@
 
     <string name="favourite_screen_title">Favourite words</string>
     <string name="history_screen_title">History</string>
+    <string name="word_screen_title">Dictionary</string>
 
     <string name="add_to_favourite">Add to favourite</string>
+    <string name="remove_from_favourite">Remove from favourite</string>
 
+    <string name="add_word">Add word</string>
     <string name="search">Search...</string>
     <string name="clear_icon_content_description">Clear</string>
+    <string name="clear_history">Clear history</string>
 
     <string name="something_went_wrong">Something went wrong</string>
+
+    <string name="copy_word">Copy word</string>
+    <string name="word_copied">Word copied to clipboard</string>
+    <string name="share">Share word</string>
 </resources>

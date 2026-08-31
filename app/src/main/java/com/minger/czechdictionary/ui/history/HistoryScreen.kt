@@ -32,10 +32,12 @@ import com.minger.czechdictionary.ui.common.LoadingScreen
 import com.minger.czechdictionary.ui.common.WordCard
 import org.koin.androidx.compose.koinViewModel
 
+
 @Composable
 fun HistoryScreen(
     modifier: Modifier = Modifier,
-    viewModel: HistoryViewModel = koinViewModel(),
+    viewModel: HistoryViewModel,
+    onWordClick: (String) -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
@@ -48,6 +50,8 @@ fun HistoryScreen(
             query = searchQuery,
             onQueryChange = viewModel::onSearchQueryChanged,
             onFavouriteClick = viewModel::onFavouriteClick,
+            onClearHistory = viewModel::clearHistory,
+            onWordClick = onWordClick,
         )
     }
 }
@@ -59,16 +63,19 @@ private fun SuccessContent(
     query: String,
     onQueryChange: (String) -> Unit,
     onFavouriteClick: (String) -> Unit,
+    onClearHistory: () -> Unit,
+    onWordClick: (String) -> Unit,
 ) {
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 8.dp, vertical = 4.dp),
-
         ) {
         AppBar(
             title = stringResource(R.string.history_screen_title),
             isBackClickNeed = false,
+            isRightIconNeed = true,
+            onDeleteClick = onClearHistory,
         )
         Spacer(modifier = Modifier.height(4.dp))
         OutlinedTextField(
@@ -95,8 +102,9 @@ private fun SuccessContent(
             items(words, key = { it.word }) { item ->
                 WordCard(
                     word = item.word,
-                    isFavourite = item.isFavorite,
-                    onWordClick = { onFavouriteClick(item.word) },
+                    isFavourite = item.isFavourite,
+                    onWordClick = { onWordClick(item.word) },
+                    updateWordClick = { onFavouriteClick(item.word) },
                 )
             }
         }
